@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى Malak ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #2b103a 0%, #160822 60%, #0d0415 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Cairo', sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Floating Hearts Background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatUp linear infinite;
+            filter: drop-shadow(0 0 8px rgba(255, 77, 136, 0.6));
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.6) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.85;
+            }
+            85% {
+                opacity: 0.85;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.2) rotate(25deg);
+                opacity: 0;
+            }
+        }
+
+        /* Screen Containers */
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
+
+        /* 1. Loading Screen */
+        .loader-ring {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 28px;
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 30px rgba(236, 72, 153, 0.3);
+        }
+
+        .loader-ring::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: 4px;
+            background: conic-gradient(from 0deg, #ff4d88, #a855f7, transparent 75%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spin 1.4s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .center-heart {
+            font-size: 36px;
+            color: #ff4d88;
+            animation: heartbeat 1.2s ease-in-out infinite;
+            filter: drop-shadow(0 0 12px #ff4d88);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.25); }
+            45% { transform: scale(1); }
+            65% { transform: scale(1.18); }
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 15px rgba(255, 77, 136, 0.5);
+            margin-bottom: 16px;
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #ff75a0;
+            animation: bounceDot 1.4s infinite ease-in-out both;
+        }
+
+        .dot:nth-child(1) { animation-delay: -0.32s; background: #c084fc; }
+        .dot:nth-child(2) { animation-delay: -0.16s; background: #f472b6; }
+        .dot:nth-child(3) { background: #fb7185; }
+
+        @keyframes bounceDot {
+            0%, 80%, 100% { transform: scale(0.4); opacity: 0.4; }
+            40% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* 2. Password Screen */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 28px;
+            padding: 36px 28px;
+            width: 100%;
+            max-width: 390px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 77, 136, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .lock-icon {
+            font-size: 46px;
+            margin-bottom: 12px;
+            display: inline-block;
+            animation: floatSlow 3s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #fce7f3;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: #d8b4fe;
+            margin-bottom: 22px;
+        }
+
+        .pass-input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 16px;
+            border: 2px solid rgba(255, 117, 160, 0.35);
+            background: rgba(15, 5, 25, 0.6);
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+            margin-bottom: 14px;
+            letter-spacing: 3px;
+        }
+
+        .pass-input:focus {
+            border-color: #ff4d88;
+            box-shadow: 0 0 20px rgba(255, 77, 136, 0.4);
+        }
+
+        .unlock-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, #ff4d88 0%, #a855f7 100%);
+            color: white;
+            font-size: 1.15rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 77, 136, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 77, 136, 0.65);
+        }
+
+        .unlock-btn:active {
+            transform: scale(0.97);
+        }
+
+        .error-msg {
+            color: #ff6b8b;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            min-height: 22px;
+            font-weight: 600;
+        }
+
+        .shake {
+            animation: shakeAnim 0.45s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shakeAnim {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
+
+        /* 3. Surprise Screen */
+        .surprise-card {
+            max-width: 420px;
+            padding: 40px 28px;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.09) 0%, rgba(168, 85, 247, 0.08) 100%);
+            border: 1px solid rgba(255, 117, 160, 0.3);
+        }
+
+        .love-heading {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 77, 136, 0.8);
+            margin-bottom: 4px;
+        }
+
+        .malak-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.4rem;
+            background: linear-gradient(to right, #ff75a0, #f472b6, #e879f9, #ff75a0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shineText 3s linear infinite;
+            line-height: 1.2;
+            margin: 6px 0 16px;
+            filter: drop-shadow(0 0 15px rgba(244, 114, 182, 0.5));
+        }
+
+        @keyframes shineText {
+            to { background-position: 200% center; }
+        }
+
+        .romantic-quote {
+            font-size: 1rem;
+            color: #f3e8ff;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            opacity: 0.92;
+        }
+
+        /* Music Player Box */
+        .music-box {
+            background: rgba(15, 5, 25, 0.65);
+            border: 1px solid rgba(255, 117, 160, 0.25);
+            border-radius: 22px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            box-shadow: inset 0 0 20px rgba(255, 77, 136, 0.1);
+        }
+
+        .vinyl-wrapper {
+            position: relative;
+            width: 54px;
+            height: 54px;
+            flex-shrink: 0;
+        }
+
+        .vinyl {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff4d88 18%, #1f102e 22%, #12081c 55%, #2d1642 60%, #12081c 100%);
+            border: 2px solid rgba(255, 117, 160, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 77, 136, 0.4);
+        }
+
+        .vinyl.spinning {
+            animation: spin 4s linear infinite;
+        }
+
+        .vinyl::after {
+            content: '❤️';
+            font-size: 12px;
+        }
+
+        .song-info {
+            text-align: right;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .song-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-artist {
+            font-size: 0.85rem;
+            color: #d8b4fe;
+        }
+
+        .equalizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 14px;
+            margin-top: 6px;
+        }
+
+        .bar {
+            width: 3px;
+            height: 4px;
+            background: #ff4d88;
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .playing .bar {
+            animation: eqAnim 0.8s ease-in-out infinite alternate;
+        }
+
+        .playing .bar:nth-child(1) { animation-delay: 0.1s; }
+        .playing .bar:nth-child(2) { animation-delay: 0.3s; }
+        .playing .bar:nth-child(3) { animation-delay: 0.0s; }
+        .playing .bar:nth-child(4) { animation-delay: 0.4s; }
+        .playing .bar:nth-child(5) { animation-delay: 0.2s; }
+
+        @keyframes eqAnim {
+            0% { height: 4px; }
+            100% { height: 14px; }
+        }
+
+        .play-pause-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #ff4d88, #c084fc);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(255, 77, 136, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .play-pause-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .play-pause-btn:active {
+            transform: scale(0.94);
+        }
+
+        /* Burst Particle */
+        .burst-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            font-size: 24px;
+            animation: burstOut 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes burstOut {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Floating Hearts -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Audio Element Linked Directly to Your File -->
+    <audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
+
+    <!-- 1. Loading Screen -->
+    <div class="screen" id="loadingScreen">
+        <div class="loader-ring">
+            <div class="center-heart">❤️</div>
+        </div>
+        <div class="loading-text">ثواني ياروحي معلش ❤️😂✨</div>
+        <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <!-- 2. Password Screen -->
+    <div class="screen hidden" id="passwordScreen">
+        <div class="glass-card" id="passCard">
+            <div class="lock-icon">🔐💖</div>
+            <h2 class="card-title">عالمنا الخاص ✨</h2>
+            <p class="card-subtitle">اكتبي كلمة السر عشان تفتحي المفاجأة</p>
+            <input type="password" id="passwordInput" class="pass-input" placeholder="••••" autocomplete="off">
+            <button class="unlock-btn" id="unlockBtn">افتح قلبي ❤️</button>
+            <div class="error-msg" id="errorMsg"></div>
+        </div>
+    </div>
+
+    <!-- 3. Surprise Screen -->
+    <div class="screen hidden" id="surpriseScreen">
+        <div class="glass-card surprise-card">
+            <div class="love-heading">بحبك يا</div>
+            <div class="malak-name">Malak</div>
+            <p class="romantic-quote">
+                إنتي أجمل حاجة حصلتلي في حياتي.. وهفضل دايماً في ضهرك ومعاكي في كل خطوة ❤️✨
+            </p>
+
+            <div class="music-box" id="musicBox">
+                <div class="vinyl-wrapper">
+                    <div class="vinyl" id="vinylDisc"></div>
+                </div>
+                <div class="song-info">
+                    <div class="song-title">أنا ضهرك 🎵</div>
+                    <div class="song-artist">بهاء سلطان</div>
+                    <div class="equalizer" id="equalizer">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+                <button class="play-pause-btn" id="playPauseBtn" title="تشغيل / إيقاف">⏸️</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Floating Hearts Generator
+        const heartsContainer = document.getElementById('heartsContainer');
+        const heartEmojis = ['❤️', '💖', '💕', '💗', '✨', '💜'];
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 18 + 14) + 'px';
+            const duration = Math.random() * 5 + 6;
+            heart.style.animationDuration = duration + 's';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createFloatingHeart, 450);
+        for (let i = 0; i < 12; i++) {
+            setTimeout(createFloatingHeart, i * 250);
+        }
+
+        // Screen Elements
+        const loadingScreen = document.getElementById('loadingScreen');
+        const passwordScreen = document.getElementById('passwordScreen');
+        const surpriseScreen = document.getElementById('surpriseScreen');
+        const passwordInput = document.getElementById('passwordInput');
+        const unlockBtn = document.getElementById('unlockBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        const passCard = document.getElementById('passCard');
+
+        // Audio Elements
+        const bgMusic = document.getElementById('bgMusic');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const vinylDisc = document.getElementById('vinylDisc');
+        const equalizer = document.getElementById('equalizer');
+
+        // Transition from Loading to Password
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            setTimeout(() => {
+                passwordScreen.classList.remove('hidden');
+                passwordInput.focus();
+            }, 400);
+        }, 3500);
+
+        // Heart Burst Effect
+        function triggerHeartBurst(x, y) {
+            for (let i = 0; i < 28; i++) {
+                const burst = document.createElement('div');
+                burst.classList.add('burst-heart');
+                burst.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                burst.style.left = x + 'px';
+                burst.style.top = y + 'px';
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 220 + 80;
+                const tx = Math.cos(angle) * velocity + 'px';
+                const ty = Math.sin(angle) * velocity + 'px';
+                const rot = (Math.random() * 360 - 180) + 'deg';
+
+                burst.style.setProperty('--tx', tx);
+                burst.style.setProperty('--ty', ty);
+                burst.style.setProperty('--rot', rot);
+
+                document.body.appendChild(burst);
+                setTimeout(() => burst.remove(), 1200);
+            }
+        }
+
+        function setPlayingState(isPlaying) {
+            if (isPlaying) {
+                playPauseBtn.innerText = '⏸️';
+                vinylDisc.classList.add('spinning');
+                equalizer.classList.add('playing');
+            } else {
+                playPauseBtn.innerText = '▶️';
+                vinylDisc.classList.remove('spinning');
+                equalizer.classList.remove('playing');
+            }
+        }
+
+        function checkPassword() {
+            const val = passwordInput.value.trim().toLowerCase();
+            if (val === 'love') {
+                errorMsg.innerText = '';
+                triggerHeartBurst(window.innerWidth / 2, window.innerHeight / 2);
+
+                // Start song automatically on user gesture
+                bgMusic.play().then(() => {
+                    setPlayingState(true);
+                }).catch(() => {
+                    setPlayingState(false);
+                });
+
+                passwordScreen.classList.add('hidden');
+                setTimeout(() => {
+                    surpriseScreen.classList.remove('hidden');
+                    setTimeout(() => triggerHeartBurst(window.innerWidth / 2, window.innerHeight / 3), 300);
+                }, 400);
+            } else {
+                errorMsg.innerText = 'كلمة السر غلط يا روحي.. جربي تاني ❤️';
+                passCard.classList.remove('shake');
+                void passCard.offsetWidth;
+                passCard.classList.add('shake');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        unlockBtn.addEventListener('click', checkPassword);
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                setPlayingState(true);
+            } else {
+                bgMusic.pause();
+                setPlayingState(false);
+            }
+        });
+    </script>
+</body>
+</html>
